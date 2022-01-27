@@ -1,13 +1,15 @@
 ##The code is to create a colour game using Tkinter with its exceptional GUI toolkit.
 
+from cgitb import text
 from tkinter import *
 import random as r
 timeLeft=45
 score=0
-colours=["red","purple","green","yellow","orange","black","white","blue","pink","brown","light blue","grey"]
+colours=["red","purple","green","yellow","orange","black","white","blue","pink","brown","light blue","gray","violet"]
 
 def startGame():
     global timeLeft
+    timeLeft=45
     if timeLeft==45:
         countdown()
         nextColour()
@@ -32,6 +34,8 @@ def nextColour():
         e.focus_set()
         if e.get().lower()==colours[1].lower():
             score+=1
+        if e.get().lower()=='exit':
+            root.destroy()
         e.delete(0,END)
         r.shuffle(colours)
         score_label.config(text="Score: "+str(score))
@@ -63,24 +67,11 @@ instructions.pack()
 colourChange=Label(root,font=("Helvetica",60))
 colourChange.pack()
 
-btn=Button(root,text="Press here to start the game",command=lambda:startGame(),bg="light blue")
+btn=Button(root,text="Press here to start/restart the game & Input exit to end!",command=lambda:startGame(),bg="green")
 btn.pack()
 
 submitColour=Button(root,text="Submit Your Answer", command=lambda:submit(),bg="yellow")
 submitColour.pack()
-
-# listBox=Listbox(root)
-# listBox.insert(1,"Restart")
-# listBox.insert(2,"Exit")
-# listBox.pack()
-
-# menu = Menu(root)
-# root.config(menu=menu)
-# filemenu = Menu(menu)
-# menu.add_cascade(label='Game Options', menu=filemenu)
-# filemenu.add_command(label='Restart',command=options("Restart"))
-# filemenu.add_command(label='Exit',command=options("Exit"))
-# filemenu.add_separator()
 
 e=Entry(root)
 e.pack()
